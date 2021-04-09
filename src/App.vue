@@ -1,28 +1,38 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <v-app>
+    <v-app-bar app color="primary" dark>
+      <v-spacer />
+      <v-app-bar-title>Excel Viewer</v-app-bar-title>
+      <v-spacer />
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn icon v-on="on" @click="darkMode">
+            <v-icon v-if="!$vuetify.theme.dark">mdi-white-balance-sunny</v-icon>
+            <v-icon v-else>mdi-moon-waxing-crescent</v-icon>
+          </v-btn>
+        </template>
+        <span>Dark Mode {{ $vuetify.theme.dark ? "Off" : "On" }}</span>
+      </v-tooltip>
+    </v-app-bar>
+
+    <v-main>
+      <ExcelViewer />
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import ExcelViewer from "./components/ExcelViewer";
 
 export default {
   name: "App",
+  methods: {
+    darkMode() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+    },
+  },
   components: {
-    HelloWorld,
+    ExcelViewer,
   },
 };
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
